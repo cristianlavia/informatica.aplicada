@@ -1,10 +1,3 @@
-Para asegurarnos de que tengas el código **100% completo, funcional y sin que te falte nada**, te comparto la estructura total definitiva.
-
-Como el historial del chat no almacena archivos locales pesados, te armé la plantilla completa con **todo integrado**: la barra de navegación tipo píldora flotante, el sistema de notas sincronizado con la tecla **N**, y la solución definitiva con Flexbox para que los títulos grandes (como el de Web 4.0) y los párrafos no se encimen nunca en ninguna pantalla.
-
-Copiá este bloque completo y guardalo en tu archivo `index.html`:
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,11 +27,19 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
   body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow:hidden;-webkit-font-smoothing:antialiased}
   
   .deck{position:fixed;inset:0}
-  .slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:clamp(30px,4.6vw,76px);
-    padding-bottom:clamp(90px,11vh,130px);
+  
+  /* CADA DIAPOSITIVA TIENE PADDING SUPERIOR PARA QUE NADA TAPE LA BARRA DE ARRIBA */
+  .slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    padding: 95px clamp(30px,4.6vw,76px) 40px;
     background:var(--white);
     opacity:0;visibility:hidden;transform:translateY(14px) scale(.992);
-    transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s;overflow-y:auto}
+    transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s;
+    overflow-y:auto;
+  }
   
   .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
   .slide.grad{background:var(--grad)}
@@ -88,7 +89,7 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
   .divider .dtitle{font-size:clamp(26px,4.4vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--purple)}
   .divider .dsub{font-size:clamp(13.5px,1.45vw,18px);color:rgba(0,0,0,.7);max-width:58ch;line-height:1.5}
 
-  /* ---- SOLUCIÓN WEB 4.0 (CERO SUPERPOSICIÓN) ---- */
+  /* WEB 4.0 SIN SUPERPOSICIÓN */
   .web4-layout {
       display: flex;
       align-items: center;
@@ -116,30 +117,34 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
       max-width: 58ch;
   }
 
-  /* ---- NOTAS DE PROFESOR ---- */
-  .tnote{position:absolute;left:0;right:0;bottom:0;padding:10px clamp(30px,4.6vw,76px) 14px;
+  /* NOTAS DE PROFESOR ABAJO */
+  .tnote{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:10px clamp(30px,4.6vw,76px) 14px;
     background:rgba(86,60,119,.95);border-top:1px solid var(--lav);
     font-size:clamp(11px,1.02vw,13px);line-height:1.55;color:#fff;z-index:4;
-    display:none}
+    display:none;
+  }
   body.notes-on .tnote{display:block}
   .tnote b{color:var(--lav);font-weight:700}
   .tnote .tmin{display:inline-block;background:#fff;color:var(--purple);border-radius:6px;padding:.06em .55em;font-weight:800;font-size:.92em;margin-right:8px}
 
   .progress{position:fixed;top:0;left:0;height:4px;background:var(--purple);z-index:60;transition:width .35s var(--ease);width:0%}
 
-  /* ---- BARRA DE NAVEGACIÓN PÍLDORA INFERIOR ---- */
+  /* BOTONERA FIJA EN LA PARTE SUPERIOR */
   .nav-pill {
       position: fixed;
-      bottom: 20px;
+      top: 15px;
+      bottom: auto;
       left: 50%;
       transform: translateX(-50%);
       background: #25252d;
       border-radius: 50px;
       display: flex;
       align-items: center;
-      padding: 8px 14px;
-      gap: 15px;
-      z-index: 100;
+      padding: 6px 14px;
+      gap: 12px;
+      z-index: 9999;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
   .nav-btn {
@@ -147,13 +152,13 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
       color: #ffffff;
       border: none;
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: background 0.2s;
   }
   .nav-btn:hover { background: #444450; }
@@ -162,8 +167,8 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
   #slideCounter {
       color: #ffffff;
       font-weight: 700;
-      font-size: 1.05rem;
-      min-width: 65px;
+      font-size: 0.95rem;
+      min-width: 60px;
       text-align: center;
       letter-spacing: 1px;
   }
@@ -172,9 +177,9 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
       color: #ffffff;
       border: none;
       border-radius: 30px;
-      padding: 8px 16px;
+      padding: 6px 14px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: background 0.2s;
   }
@@ -183,7 +188,7 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
 
   @media (max-width:760px){
     .g2,.g3{grid-template-columns:1fr}
-    .slide{padding:24px 18px 130px}
+    .slide{padding:95px 18px 40px}
     .web4-layout{flex-direction:column;align-items:flex-start;gap:1.5rem}
     .web4-title{font-size:70px}
   }
@@ -192,42 +197,40 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
 <body class="notes-on">
 <div class="progress" id="progress"></div>
 
+<!-- BOTONERA SUPERIOR -->
+<div class="nav-pill">
+    <button id="btnPrev" class="nav-btn">❮</button>
+    <span id="slideCounter">01 / 58</span>
+    <button id="btnNext" class="nav-btn">❯</button>
+    <button id="btnNotes" class="notes-toggle">Notas: ON</button>
+</div>
+
 <div class="deck">
 
   <!-- ======================================================== -->
-  <!-- PEGA AQUÍ TODAS TUS DIAPOSITIVAS (Desde la 1 hasta la 58)  -->
+  <!-- PEGA AQUÍ TUS 58 DIAPOSITIVAS (<section class="slide">) -->
   <!-- ======================================================== -->
 
-  <!-- Ejemplo de Diapositiva Normal -->
   <section class="slide active">
     <div class="head reveal"><span class="kicker">Módulo 1</span><h2>Bienvenida a la Presentación</h2></div>
-    <p class="lead reveal">Aquí va el contenido de tu primera diapositiva...</p>
-    <div class="tnote"><span class="tmin">0:00</span><b>Nota de profesor:</b> Podés ocultar o mostrar estas notas presionando la letra <b>N</b> en tu teclado o haciendo clic en el botón inferior.</div>
+    <p class="lead reveal">Pegá aquí el contenido de tus diapositivas...</p>
+    <div class="tnote"><span class="tmin">0:00</span><b>Nota de profesor:</b> Presioná la letra <b>N</b> para ocultar o mostrar estas notas.</div>
   </section>
 
-  <!-- Ejemplo de Diapositiva con Web 4.0 corregida -->
   <section class="slide">
     <div class="head reveal"><span class="kicker">Ecosistema Digital</span><h2>Evolución Tecnológica</h2></div>
     <div class="web4-layout reveal">
       <div class="web4-title">Web<br>4.0</div>
       <div class="web4-content">
         <h3>Sobrevivir a la Infoxicación</h3>
-        <p>El diseño en Flexbox evita cualquier superposición indeseada entre el título gigante y los párrafos descriptivos, sin importar la resolución.</p>
+        <p>Estructura corregida con Flexbox para evitar superposiciones.</p>
       </div>
     </div>
-    <div class="tnote"><span class="tmin">5:00</span><b>Nota:</b> Explicar el salto tecnológico hacia la automatización inteligente.</div>
+    <div class="tnote"><span class="tmin">5:00</span><b>Nota:</b> Explicar automatización inteligente.</div>
   </section>
 
-  <!-- Agrega el resto de tus secciones <section class="slide">...</section> aquí abajo -->
+  <!-- Continuar pegando el resto de diapositivas hasta la 58 aquí -->
 
-</div>
-
-<!-- BARRA DE NAVEGACIÓN PÍLDORA -->
-<div class="nav-pill">
-    <button id="btnPrev" class="nav-btn">❮</button>
-    <span id="slideCounter">01 / 58</span>
-    <button id="btnNext" class="nav-btn">❯</button>
-    <button id="btnNotes" class="notes-toggle">Notas: ON</button>
 </div>
 
 <script>
@@ -249,12 +252,10 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
         slides[activeIdx].classList.add('active');
         progress.style.width = ((activeIdx + 1) / slides.length * 100) + '%';
 
-        // Actualizar contador con ceros a la izquierda automáticos (ej. 01 / 58)
         const currentNum = String(activeIdx + 1).padStart(2, '0');
         const totalNum = String(slides.length).padStart(2, '0');
         counterDisplay.innerText = `${currentNum} / ${totalNum}`;
         
-        // Control de límites de los botones
         btnPrev.disabled = activeIdx === 0;
         btnNext.disabled = activeIdx === slides.length - 1;
       }
@@ -273,10 +274,8 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
         }
     }
 
-    // Inicialización
     updateSlide(0);
 
-    // Controles por teclado (Flechas, Espacio y tecla N)
     document.addEventListener('keydown', (e) => {
       if(e.key === 'ArrowRight' || e.key === ' ') {
         updateSlide(activeIdx + 1);
@@ -287,7 +286,6 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
       }
     });
 
-    // Eventos de clic en la botonera flotante
     btnPrev.addEventListener('click', () => updateSlide(activeIdx - 1));
     btnNext.addEventListener('click', () => updateSlide(activeIdx + 1));
     btnNotes.addEventListener('click', toggleNotes);
@@ -295,5 +293,3 @@ Copiá este bloque completo y guardalo en tu archivo `index.html`:
 </script>
 </body>
 </html>
-
-```
