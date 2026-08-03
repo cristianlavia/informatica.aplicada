@@ -1,240 +1,566 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 1 - Informática Aplicada</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Colores de marca basados en tu configuración original */
-            --black: #141414;
-            --ink: #1a1a1a;
-            --white: #ffffff;
-            --purple: #563C77;
-            --bright: #8271cc;
-            --lav: #DBC5FC;
-            --grad: linear-gradient(100deg, #f8f9fa 0%, #ffffff 50%, #f0ebf8 100%);
-            --grey: #6b6b6b;
-            --line: rgba(86, 60, 119, 0.15);
-            --ease: cubic-bezier(.22,.61,.36,1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 1 · Informática Aplicada · Universidad Popular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Brand Colors: White dominant, purple details */
+    --black: #141414;
+    --ink: #1a1a1a;
+    --white: #ffffff;
+    --purple: #563c77;
+    --bright: #8271cc;
+    --lav: #DBC5FC;
+    --grad: linear-gradient(100deg, #f8f9fa 0%, #ffffff 50%, #f0ebf8 100%);
+    --grey: #6b6b6b;
+    --line: rgba(86, 60, 119, 0.15);
+    --line-dark: rgba(0,0,0,.14);
+    --r: 22px;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow:hidden;-webkit-font-smoothing:antialiased}
+  
+  .deck{position:fixed;inset:0}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:clamp(30px,4.6vw,76px);
+    padding-bottom:clamp(70px,9vh,110px);
+    background:var(--white); /* Forcing white background for all slides */
+    opacity:0;visibility:hidden;transform:translateY(14px) scale(.992);
+    transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s;overflow-y:auto}
+  
+  .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+  .slide.grad{background:var(--grad)}
+  
+  .slide.active .reveal{animation:rise .55s var(--ease) both}
+  .reveal[data-d="1"]{animation-delay:.08s!important}.reveal[data-d="2"]{animation-delay:.15s!important}
+  .reveal[data-d="3"]{animation-delay:.22s!important}.reveal[data-d="4"]{animation-delay:.29s!important}
+  .reveal[data-d="5"]{animation-delay:.36s!important}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html, body { 
-            height: 100%; 
-            font-family: 'Inter', sans-serif; 
-            background: var(--white); 
-            color: var(--black); 
-            overflow: hidden; 
-            -webkit-font-smoothing: antialiased;
-        }
+  .wordmark{display:inline-flex;align-items:center;gap:.4em;font-size:clamp(13px,1.35vw,17px);font-weight:600;color:var(--purple)}
+  .wordmark .pill{border:1.4px solid currentColor;border-radius:999px;padding:.1em .62em;font-weight:400}
+  .mark{width:1.05em;height:1.05em;flex:none}
+  .mark path{fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
 
-        /* Estructura de las diapositivas */
-        .deck { position: fixed; inset: 0; }
-        
-        .slide {
-            position: absolute; inset: 0; 
-            display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center;
-            padding: clamp(30px, 4.6vw, 76px);
-            padding-bottom: clamp(70px, 9vh, 110px);
-            background: var(--white);
-            opacity: 0; visibility: hidden; 
-            transform: translateY(14px) scale(.992);
-            transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s;
-        }
+  .kicker{display:inline-flex;align-items:center;gap:.6em;font-size:clamp(10.5px,.95vw,12.5px);font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--purple)}
+  .display{font-size:clamp(38px,6vw,90px);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--purple)}
+  .head{display:flex;flex-direction:column;gap:11px;margin-bottom:clamp(18px,2.4vw,32px)}
+  .head h2{font-size:clamp(26px,4vw,54px);font-weight:800;letter-spacing:-.025em;line-height:1.02;color:var(--purple)}
+  
+  .lead{font-size:clamp(14.5px,1.5vw,19px);line-height:1.5;color:rgba(0,0,0,.66);max-width:66ch}
+  
+  .tag{display:inline-flex;align-items:center;gap:.5em;border:1.4px solid var(--purple);border-radius:999px;padding:.3em .85em;font-size:clamp(10.5px,1vw,12.5px);font-weight:600;color:var(--purple)}
+  .spacer{flex:1}
+  .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;font-size:11.5px;color:var(--grey);letter-spacing:.04em}
 
-        .slide.active {
-            opacity: 1; visibility: visible; 
-            transform: translateY(0) scale(1);
-            z-index: 10;
-        }
+  .grid{display:grid;gap:clamp(12px,1.25vw,17px)}
+  .g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+  
+  .card{border:1.4px solid var(--line);border-radius:var(--r);padding:clamp(15px,1.7vw,25px);display:flex;flex-direction:column;gap:9px;background:rgba(86,60,119,.03)}
+  .card .n{font-size:clamp(22px,2.6vw,36px);font-weight:900;color:var(--purple)}
+  .card h3{font-size:clamp(15px,1.45vw,20px);font-weight:700;line-height:1.15;color:var(--purple)}
+  .card p{font-size:clamp(12.5px,1.1vw,14.5px);line-height:1.5;color:rgba(0,0,0,.62)}
+  .card ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .card li{font-size:clamp(12px,1.05vw,14px);line-height:1.45;padding-left:17px;position:relative;color:rgba(0,0,0,.66)}
+  .card li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:2px;background:var(--purple)}
+  
+  .card.accent{background:var(--purple);border-color:transparent;color:#fff}
+  .card.accent h3{color:#fff}
+  .card.accent p,.card.accent li{color:rgba(255,255,255,.86)}
+  .card.accent li::before{background:var(--lav)}
+  .card.accent .n{color:var(--lav)}
 
-        /* Tipografía básica de la presentación */
-        h1 { font-size: 3rem; color: var(--purple); margin-bottom: 20px; }
-        h2 { font-size: 2.2rem; color: var(--ink); margin-bottom: 20px; }
-        p, li { font-size: 1.2rem; line-height: 1.6; color: var(--black); }
-        ul { text-align: left; display: inline-block; margin-top: 20px; }
-        li { margin-bottom: 10px; }
+  .row{display:flex;align-items:flex-start;gap:14px;padding:11px 15px;border:1.4px solid var(--line-dark);border-radius:13px}
+  .row .time{flex:none;min-width:48px;font-weight:800;color:var(--purple);font-size:clamp(12.5px,1.2vw,15px)}
+  .row .rc strong{display:block;font-size:clamp(13px,1.15vw,15px);font-weight:700;margin-bottom:1px;color:var(--black)}
+  .row .rc span{font-size:clamp(11px,.95vw,12.5px);color:rgba(0,0,0,.55);line-height:1.4}
+  
+  .row.hi{background:var(--purple);border-color:transparent}
+  .row.hi .time{color:var(--lav)}
+  .row.hi .rc strong{color:#fff}
+  .row.hi .rc span{color:rgba(255,255,255,.82)}
 
-        /* --- NUEVO: Controles y Navegación --- */
-        .controls {
-            position: fixed; bottom: 20px; right: 30px; 
-            display: flex; gap: 10px; z-index: 100;
-        }
+  .divider{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:15px;flex:1}
+  .divider .bignum{font-size:clamp(90px,18vw,270px);font-weight:900;line-height:.78;letter-spacing:-.05em;color:var(--purple);opacity:0.1;position:absolute;right:5%;top:20%;z-index:-1}
+  .divider .dtitle{font-size:clamp(26px,4.4vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--purple)}
+  .divider .dsub{font-size:clamp(13.5px,1.45vw,18px);color:rgba(0,0,0,.7);max-width:58ch;line-height:1.5}
 
-        button {
-            background: var(--purple); color: var(--white); 
-            border: none; padding: 12px 20px; border-radius: 8px; 
-            cursor: pointer; font-family: 'Inter'; font-weight: 600; font-size: 1rem;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+  .promptbox{background:var(--white);border:1.4px solid var(--purple);border-radius:16px;padding:clamp(15px,1.7vw,23px);font-size:clamp(12.5px,1.2vw,15.5px);line-height:1.7;color:var(--black);white-space:pre-wrap;box-shadow:0 10px 40px rgba(86,60,119,.1)}
+  .promptbox .lbl{display:block;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:9px;white-space:normal}
+  .promptbox b{color:var(--purple);font-weight:800}
 
-        button:hover { background: var(--bright); }
-        button:active { transform: scale(0.95); }
-        button:disabled { background: var(--grey); cursor: not-allowed; opacity: 0.5; box-shadow: none; }
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(13px,1.5vw,22px);flex:1;align-content:center}
+  .vs .side{border-radius:var(--r);padding:clamp(16px,1.9vw,28px);display:flex;flex-direction:column;gap:11px}
+  .vs .bad{background:#fbe4de;border:1.4px solid rgba(255,120,100,.35)}
+  .vs .good{background:#e2f3e3;border:1.4px solid rgba(120,220,150,.35)}
+  .vs h3{font-size:clamp(16px,1.6vw,22px);font-weight:800}
+  .vs .bad h3{color:#d32f2f}.vs .good h3{color:#2e7d32}
+  .vs p{font-size:clamp(12.5px,1.15vw,15px);line-height:1.55;color:rgba(0,0,0,.78)}
 
-        .btn-notes { background: #333; }
-        .btn-notes.active { background: var(--bright); border: 2px solid var(--purple); }
+  .checkline{display:flex;flex-direction:column;gap:9px}
+  .checkline .c{display:flex;gap:11px;align-items:flex-start;font-size:clamp(13px,1.3vw,16.5px);line-height:1.5}
+  .checkline .c b{color:var(--purple)}
+  .checkline .ic{flex:none;width:25px;height:25px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:800}
+  .ic.no{background:#fbe4de;color:#d32f2f}.ic.si{background:#e2f3e3;color:#2e7d32}
 
-        /* --- NUEVO: Panel de Notas --- */
-        .notes-panel {
-            position: fixed; bottom: 80px; right: 30px; width: 350px;
-            background: var(--lav); padding: 20px; border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border: 2px solid var(--purple);
-            opacity: 0; visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s var(--ease);
-            z-index: 99; text-align: left;
-        }
+  .timerchip{position:absolute;top:clamp(18px,2.6vw,36px);right:clamp(18px,2.6vw,36px);border:1.4px solid var(--purple);color:var(--purple);border-radius:999px;padding:.28em .95em;font-size:clamp(10.5px,1.05vw,13px);font-weight:700;letter-spacing:.05em;z-index:3}
 
-        .notes-panel.visible {
-            opacity: 1; visibility: visible; transform: translateY(0);
-        }
+  /* ---- NOTAS DE PROFESOR ---- */
+  .tnote{position:absolute;left:0;right:0;bottom:0;padding:10px clamp(30px,4.6vw,76px) 12px;
+    background:rgba(86,60,119,.95);border-top:1px solid var(--lav);
+    font-size:clamp(11px,1.02vw,13px);line-height:1.55;color:#fff;z-index:4;
+    display:none}
+  body.notes-on .tnote{display:block}
+  .tnote b{color:var(--lav);font-weight:700}
+  .tnote .tmin{display:inline-block;background:#fff;color:var(--purple);border-radius:6px;padding:.06em .55em;font-weight:800;font-size:.92em;margin-right:8px}
 
-        .notes-panel h3 { margin-bottom: 10px; font-size: 1.1rem; color: var(--purple); }
-        .notes-panel p { font-size: 0.95rem; line-height: 1.5; margin: 0; color: var(--ink); }
-    </style>
+  .progress{position:fixed;top:0;left:0;height:4px;background:var(--purple);z-index:60;transition:width .35s var(--ease);width:0%}
+
+  /* ---- NUEVO: ESTRUCTURA CORREGIDA PARA WEB 4.0 ---- */
+  .web4-layout {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      width: 100%;
+      flex: 1;
+  }
+  .web4-title {
+      font-size: clamp(60px, 8vw, 120px);
+      font-weight: 900;
+      line-height: 0.85;
+      color: var(--purple);
+      flex-shrink: 0;
+  }
+  .web4-content h3 {
+      font-size: clamp(19px, 2.3vw, 30px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--purple);
+  }
+  .web4-content p {
+      font-size: clamp(13.5px, 1.35vw, 17px);
+      line-height: 1.55;
+      color: rgba(0,0,0,.68);
+      max-width: 58ch;
+  }
+
+  /* ---- NUEVO: BARRA DE NAVEGACIÓN PÍLDORA ---- */
+  .nav-pill {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #25252d;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 15px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .nav-btn {
+      background: #33333d;
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.2s;
+  }
+  .nav-btn:hover { background: #444450; }
+  .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  #slideCounter {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.15rem;
+      min-width: 75px;
+      text-align: center;
+      letter-spacing: 1px;
+  }
+  .notes-toggle {
+      background: var(--purple);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+  }
+  .notes-toggle:hover { background: #6b4a94; }
+  .notes-toggle.off { background: #444450; color: #a0a0a0; }
+
+  @media (max-width:760px){.g2,.g3,.vs{grid-template-columns:1fr}.slide{padding:24px 18px 120px}.web4-layout{flex-direction:column;align-items:flex-start;gap:1.5rem}.web4-title{font-size:80px}}
+</style>
 </head>
-<body>
+<body class="notes-on">
+<div class="progress" id="progress"></div>
 
-    <!-- Contenedor principal de las diapositivas -->
-    <div class="deck">
+<div class="deck">
+
+<!-- 1. PORTADA -->
+<section class="slide grad active">
+  <div style="display:flex;justify-content:space-between;align-items:center" class="reveal">
+    <span class="wordmark">
+      <svg class="mark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" fill="none"/><path d="M30 50 L45 65 L70 30" stroke="currentColor" stroke-width="8" fill="none"/></svg>
+      Universidad <span class="pill">Popular</span>
+    </span>
+    <span class="tag">Tecnicatura Superior en Marketing y Publicidad</span>
+  </div>
+  <div class="spacer"></div>
+  <div style="display:flex;flex-direction:column;gap:clamp(14px,2.4vw,26px)">
+    <span class="kicker reveal" data-d="1">Materia: Informática Aplicada</span>
+    <h1 class="display reveal" data-d="2">El rol de los datos<br>en el Marketing Moderno</h1>
+    <p class="lead reveal" data-d="3">Prof. Cristian Alejandro Lavia<br><small>Analista de Datos y Business Intelligence</small></p>
+  </div>
+  <div class="spacer"></div>
+  <div class="foot reveal" data-d="4"><span>Clase Inaugural</span><span>Ciclo Lectivo</span></div>
+  <div class="tnote"><span class="tmin">0:00</span><b>Bienvenida:</b> Tecla <b>N</b> oculta estas notas. Aprovecha la presentación para comentar tu trayectoria como Analista de BI y cómo esta visión enriquecerá a los alumnos de marketing a tomar decisiones basadas en datos.</div>
+</section>
+
+<!-- 2. AGENDA UNIDADES -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Plan de Estudio</span><h2>Hoja de Ruta de la Materia</h2></div>
+  <div class="grid g3 reveal" style="flex:1; align-content:center;">
+    
+    <div class="card">
+      <div class="n">01</div>
+      <h3>Ecosistema Digital y Herramientas IA</h3>
+      <p>Evolución web, entornos colaborativos y el poder de la Inteligencia Artificial Generativa.</p>
+      <ul>
+        <li>Google Workspace</li>
+        <li>Búsqueda e Infoxicación</li>
+        <li>Prompts y Google Gemini</li>
+        <li>Regulación y Ética</li>
+      </ul>
+    </div>
+    
+    <div class="card accent">
+      <div class="n">02</div>
+      <h3>Manejo de Datos y<br>Procesos ETL</h3>
+      <p>El núcleo del análisis. Transformación de datos crudos en información útil para campañas.</p>
+      <ul>
+        <li>Estructura de BBDD</li>
+        <li>Limpieza de datos (ETL)</li>
+        <li>Fórmulas Lógicas y Condicionales</li>
+        <li>Tablas Dinámicas e IA en Sheets</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="n">03</div>
+      <h3>Visualización y<br>Business Intelligence</h3>
+      <p>Storytelling con datos. Cómo presentar resultados para decisiones estratégicas.</p>
+      <ul>
+        <li>Conexión con Looker Studio</li>
+        <li>Storytelling y Diseño</li>
+        <li>Dimensiones vs Métricas</li>
+        <li>Dashboards interactivos</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="tnote"><span class="tmin">5:00</span><b>Visión General:</b> Explica que el recorrido va de lo macro (entender el ecosistema) a lo micro (limpiar datos en Sheets), para terminar en la presentación ejecutiva (Looker Studio).</div>
+</section>
+
+<!-- 3. UNIDAD 1 DIVIDER -->
+<section class="slide grad">
+  <div class="divider reveal">
+    <div class="bignum">U1</div>
+    <span class="kicker">Unidad 1</span>
+    <h2 class="dtitle">La Era de la Información<br>y la IA Generativa</h2>
+    <p class="dsub">Del Hardware y Software tradicional al Ecosistema de Google y el uso de Inteligencia Artificial en la curación de información para Marketing.</p>
+  </div>
+  <div class="tnote"><span class="tmin">10:00</span><b>Intro Unidad 1:</b> Aquí enfatiza la diferencia entre Dato, Información y Conocimiento. El dato aislado no sirve; el marketing requiere conocimiento.</div>
+</section>
+
+<!-- 4. U1 - BÚSQUEDA Y GOOGLE (CORREGIDO WEB 4.0) -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Unidad 1 · Entorno Digital</span><h2>De la Búsqueda a la Colaboración</h2></div>
+  
+  <div class="grid g2 reveal" style="flex:1; align-content:center">
+    
+    <!-- NUEVA ESTRUCTURA FLEXBOX PARA WEB 4.0 -->
+    <div class="web4-layout">
+      <div class="web4-title">Web<br>4.0</div>
+      <div class="web4-content">
+        <h3>Sobrevivir a la Infoxicación</h3>
+        <p>Hoy el desafío no es encontrar información, sino validarla. La investigación digital exige fuentes confiables y documentación clara del proceso.</p>
+      </div>
+    </div>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; justify-content:center">
+      <div class="row">
+        <div class="time">01</div>
+        <div class="rc">
+          <strong>Ecosistema Google Workspace</strong>
+          <span>Integración de Docs (Briefs), Drive y Sheets. Entorno colaborativo en tiempo real.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">02</div>
+        <div class="rc">
+          <strong>Ciclo de vida del dato</strong>
+          <span>Captura, Almacenamiento, Procesamiento, Análisis y Archivo.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">03</div>
+        <div class="rc">
+          <strong>Protección de Datos</strong>
+          <span>GDPR y Leyes locales. Seguridad del First-Party Data y ética publicitaria.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tnote"><span class="tmin">15:00</span><b>Infoxicación:</b> Menciona cómo los analistas de marketing filtran el "ruido". Destaca el brief de proyecto como documento vivo en Google Docs.</div>
+</section>
+
+<!-- 5. U1 - IA GENERATIVA (GEMINI) -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Unidad 1 · IA en Marketing</span><h2>Potenciando el Benchmarking con Gemini</h2></div>
+  <p class="lead reveal" style="margin-bottom: 20px;">La Inteligencia Artificial Generativa no reemplaza la estrategia, la acelera. Uso de prompts estructurados para definir Buyer Personas y analizar competidores.</p>
+  
+  <div class="promptbox reveal">
+    <span class="lbl">Ejemplo de Prompt Estructurado para Gemini</span>
+    Actúa como un <b>Analista de Marketing Senior</b> experto en el mercado argentino.
+    
+    <b>Tarea:</b> Desarrolla un perfil de "Buyer Persona" detallado para una campaña de e-commerce de indumentaria deportiva.
+    <b>Contexto:</b> Nuestro cliente busca expandirse en el norte del país, específicamente en la provincia del Chaco.
+    <b>Formato:</b> Entrégame el perfil en viñetas incluyendo: Datos demográficos, Intereses, Puntos de dolor (Pain points), y Hábitos de consumo digital.
+    <b>Tono:</b> Profesional y analítico.
+  </div>
+  <div class="tnote"><span class="tmin">25:00</span><b>Uso de Gemini:</b> Explica la anatomía del prompt (Rol, Tarea, Contexto, Formato). Muestra en vivo cómo este prompt genera insights que luego se tabulan en Sheets.</div>
+</section>
+
+<!-- 6. UNIDAD 2 DIVIDER -->
+<section class="slide grad">
+  <div class="divider reveal">
+    <div class="bignum">U2</div>
+    <span class="kicker">Unidad 2</span>
+    <h2 class="dtitle">Procesamiento de Datos:<br>Hojas de Cálculo y ETL</h2>
+    <p class="dsub">La estructura correcta de una base de datos. Obtención, transformación, limpieza y carga de métricas de marketing (KPIs) usando Google Sheets.</p>
+  </div>
+  <div class="tnote"><span class="tmin">40:00</span><b>Intro U2:</b> Como analista, este es tu fuerte. Transmite a los alumnos que el 80% del tiempo de un analista se va en limpiar datos (Proceso ETL).</div>
+</section>
+
+<!-- 7. U2 - ESTRUCTURA Y ETL -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Unidad 2 · Estructura Tabular</span><h2>El Proceso ETL y Calidad de Datos</h2></div>
+  
+  <div class="vs reveal">
+    <div class="side bad">
+      <h3>Estructura Incorrecta (Reporte)</h3>
+      <p>Datos combinados en celdas, celdas vacías, múltiples encabezados, colores como indicador de estado, fechas en texto.</p>
+      <div class="checkline" style="margin-top:auto">
+        <div class="c"><div class="ic no">&times;</div> <span>Imposible de filtrar</span></div>
+        <div class="c"><div class="ic no">&times;</div> <span>Rompe las fórmulas</span></div>
+      </div>
+    </div>
+    <div class="side good">
+      <h3>Estructura Correcta (Tabular)</h3>
+      <p>Una fila por registro, una columna por variable. Importación limpia desde archivos CSV/XLSX. Sin formatos visuales que rompan la lectura de máquina.</p>
+      <div class="checkline" style="margin-top:auto">
+        <div class="c"><div class="ic si">&checkmark;</div> <span>Ideal para Tablas Dinámicas</span></div>
+        <div class="c"><div class="ic si">&checkmark;</div> <span>Listo para Looker Studio</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="tnote"><span class="tmin">50:00</span><b>Estructura Tabular:</b> Haz énfasis en que los softwares de BI (como Looker o Power BI) odian las celdas combinadas. La base de datos no está hecha para verse bonita, está hecha para procesarse.</div>
+</section>
+
+<!-- 8. U2 - FÓRMULAS -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Unidad 2 · Funciones Clave</span><h2>El Arsenal de Google Sheets</h2></div>
+  
+  <div class="grid g3 reveal" style="flex:1;">
+    <div class="card">
+      <div class="n">Limpieza</div>
+      <h3>Textos y Duplicados</h3>
+      <ul>
+        <li><b>TRIM() / ESPACIOS():</b> Elimina espacios extra.</li>
+        <li><b>PROPER() / NOMPROPIO():</b> Estandariza mayúsculas.</li>
+        <li><b>UNIQUE():</b> Extrae valores únicos.</li>
+        <li><b>ISBLANK():</b> Gestión de nulos.</li>
+      </ul>
+    </div>
+    
+    <div class="card accent">
+      <div class="n">Lógicas</div>
+      <h3>Búsqueda y Segmentación</h3>
+      <ul>
+        <li><b>VLOOKUP / BUSCARV:</b> Cruce de BBDD.</li>
+        <li><b>IMPORTRANGE:</b> Conecta planillas distintas.</li>
+        <li><b>IF / SI:</b> Condicionales básicos para KPIs.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="n">Agrupación</div>
+      <h3>Métricas Condicionales</h3>
+      <ul>
+        <li><b>SUMIFS / SUMAR.SI.CONJUNTO:</b> Suma por campaña/fecha.</li>
+        <li><b>COUNTIFS / CONTAR.SI.CONJUNTO:</b> Volúmenes de leads.</li>
+        <li><b>Tablas Dinámicas:</b> El paso previo al Dashboard.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tnote"><span class="tmin">65:00</span><b>Fórmulas:</b> Menciona que hoy la IA nos ayuda a generar estas fórmulas. Si no saben escribir el VLOOKUP complejo, pueden pedírselo a Gemini, pero deben entender la lógica para depurar errores.</div>
+</section>
+
+<!-- 9. UNIDAD 3 DIVIDER -->
+<section class="slide grad">
+  <div class="divider reveal">
+    <div class="bignum">U3</div>
+    <span class="kicker">Unidad 3</span>
+    <h2 class="dtitle">Business Intelligence<br>y Data Storytelling</h2>
+    <p class="dsub">Conexión de Sheets hacia Looker Studio. Entendimiento de Dimensiones vs Métricas y diseño de tableros interactivos para toma de decisiones.</p>
+  </div>
+  <div class="tnote"><span class="tmin">85:00</span><b>Intro U3:</b> Llegamos a la "vidriera" del analista. El paso final donde la limpieza (U2) rinde sus frutos visualmente.</div>
+</section>
+
+<!-- 10. U3 - LOOKER Y BI -->
+<section class="slide">
+  <div class="head reveal"><span class="kicker">Unidad 3 · Visualización Efectiva</span><h2>De la celda al Dashboard</h2></div>
+  <div class="grid g2 reveal" style="flex:1;">
+    
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <h3 style="color:var(--purple); margin-bottom:15px; font-size: 24px;">Anatomía de Looker Studio</h3>
+      <div class="row hi" style="margin-bottom: 10px;">
+        <div class="rc">
+          <strong>1. Conexión Directa</strong>
+          <span>El repositorio transformado en Google Sheets se sincroniza en tiempo real.</span>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="rc">
+          <strong>2. Dimensiones vs. Métricas</strong>
+          <span><b>Dimensión:</b> El "qué" o "cuándo" (Ej. Canal de Adquisición, Fecha).<br><b>Métrica:</b> El "cuánto" (Ej. Clics, Inversión, ROI).</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rc">
+          <strong>3. Filtros Dinámicos</strong>
+          <span>Controles interactivos por fecha, campaña o segmento.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card accent" style="justify-content:center; background: var(--purple);">
+      <h3 style="font-size: 28px; margin-bottom: 15px;">Data Storytelling</h3>
+      <p style="font-size: 16px; margin-bottom: 15px;">Un gráfico no debe ser solo "bonito", debe responder una pregunta de negocio.</p>
+      <ul>
+        <li><b>Contexto:</b> ¿Quién es la audiencia del reporte?</li>
+        <li><b>Simplicidad:</b> Elimina el desorden visual (Chartjunk).</li>
+        <li><b>Accionabilidad:</b> Traducir gráficos en decisiones (Ej. Pausar campaña, escalar presupuesto).</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="tnote"><span class="tmin">100:00</span><b>Dimensiones vs Métricas:</b> Esta es la regla de oro del BI. Asegúrate de que entiendan la diferencia, usa un ejemplo práctico como "Ventas (métrica) por Sucursal (dimensión)".</div>
+</section>
+
+<!-- 11. CIERRE -->
+<section class="slide grad">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%" class="reveal">
+    <span class="kicker" style="margin-bottom:20px;">Fin de la Clase 1</span>
+    <h2 class="display" style="margin-bottom:20px;">¿Preguntas?</h2>
+    <p class="lead">Preparando el terreno para nuestra primera práctica de limpieza de datos.</p>
+    
+    <div style="margin-top: 40px; display:inline-flex; gap:20px;">
+      <span class="tag">Próxima clase: Taller Práctico Google Sheets</span>
+    </div>
+  </div>
+  <div class="tnote"><span class="tmin">115:00</span><b>Cierre:</b> Abre espacio de preguntas. Recuérdales traer la cuenta de Google activa para la próxima sesión práctica.</div>
+</section>
+
+</div>
+
+<!-- NUEVO: BARRA DE NAVEGACIÓN PÍLDORA -->
+<div class="nav-pill">
+    <button id="btnPrev" class="nav-btn">❮</button>
+    <span id="slideCounter">01 / 11</span>
+    <button id="btnNext" class="nav-btn">❯</button>
+    <button id="btnNotes" class="notes-toggle">Notas: ON</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    const progress = document.getElementById('progress');
+    const counterDisplay = document.getElementById('slideCounter');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const btnNotes = document.getElementById('btnNotes');
+
+    let activeIdx = 0;
+    let notesActive = true; // Empieza en true por tu clase en el body
+
+    function updateSlide(newIdx) {
+      if(newIdx >= 0 && newIdx < slides.length) {
+        slides[activeIdx].classList.remove('active');
+        activeIdx = newIdx;
+        slides[activeIdx].classList.add('active');
+        progress.style.width = ((activeIdx + 1) / slides.length * 100) + '%';
+
+        // Actualizar contador
+        const currentNum = String(activeIdx + 1).padStart(2, '0');
+        const totalNum = String(slides.length).padStart(2, '0');
+        counterDisplay.innerText = `${currentNum} / ${totalNum}`;
         
-        <!-- Diapositiva 1 -->
-        <div class="slide active">
-            <h1>Informática Aplicada</h1>
-            <h2>Universidad Popular</h2>
-            <p>Introducción y Conceptos Básicos</p>
-            
-            <!-- La nota oculta de esta diapositiva (solo la lee el JS) -->
-            <div class="note-content" style="display: none;">
-                Bienvenidos. Recordar presentarse, mencionar la modalidad de cursado y los horarios de consultas.
-            </div>
-        </div>
+        // Habilitar/deshabilitar botones en los bordes
+        btnPrev.disabled = activeIdx === 0;
+        btnNext.disabled = activeIdx === slides.length - 1;
+      }
+    }
 
-        <!-- Diapositiva 2 -->
-        <div class="slide">
-            <h2>Evolución de la Web</h2>
-            <ul>
-                <li><strong>Web 1.0:</strong> Sitios estáticos y de solo lectura.</li>
-                <li><strong>Web 2.0:</strong> Redes sociales, foros y colaboración.</li>
-                <li><strong>Web 3.0:</strong> Web semántica, blockchain y descentralización.</li>
-                <li><strong>Web 4.0:</strong> Inteligencia Artificial, web ubicua y predictiva.</li>
-            </ul>
-            
-            <div class="note-content" style="display: none;">
-                Hacer hincapié en la diferencia entre la descentralización de la 3.0 y el comportamiento predictivo (IA) de la 4.0. Dar ejemplos de asistentes virtuales.
-            </div>
-        </div>
-
-        <!-- Diapositiva 3 -->
-        <div class="slide">
-            <h2>¡Preguntas!</h2>
-            <p>¿Tienen alguna duda hasta acá?</p>
-            
-            <div class="note-content" style="display: none;">
-                Dar 5 minutos para responder preguntas antes de pasar a la práctica.
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Panel flotante donde se muestran las notas -->
-    <div class="notes-panel" id="notesPanel">
-        <h3>📝 Notas del Orador</h3>
-        <p id="currentNoteText">No hay notas para esta diapositiva.</p>
-    </div>
-
-    <!-- Botones de navegación inferiores -->
-    <div class="controls">
-        <button id="btnNotes" class="btn-notes">Notas</button>
-        <button id="btnPrev">◀</button>
-        <button id="btnNext">▶</button>
-    </div>
-
-    <!-- Lógica de navegación y notas -->
-    <script>
-        const slides = document.querySelectorAll('.slide');
-        const btnPrev = document.getElementById('btnPrev');
-        const btnNext = document.getElementById('btnNext');
-        const btnNotes = document.getElementById('btnNotes');
-        const notesPanel = document.getElementById('notesPanel');
-        const currentNoteText = document.getElementById('currentNoteText');
-
-        let currentSlideIndex = 0;
-
-        function updateDeck() {
-            // Actualizar vista de diapositivas
-            slides.forEach((slide, index) => {
-                if (index === currentSlideIndex) {
-                    slide.classList.add('active');
-                    
-                    // Buscar si esta diapositiva tiene notas
-                    const noteElement = slide.querySelector('.note-content');
-                    if (noteElement) {
-                        currentNoteText.innerHTML = noteElement.innerHTML;
-                    } else {
-                        currentNoteText.innerHTML = "<em>Sin notas adicionales.</em>";
-                    }
-                } else {
-                    slide.classList.remove('active');
-                }
-            });
-
-            // Activar/Desactivar flechas en los bordes
-            btnPrev.disabled = currentSlideIndex === 0;
-            btnNext.disabled = currentSlideIndex === slides.length - 1;
+    // Lógica para encender/apagar notas
+    function toggleNotes() {
+        notesActive = !notesActive;
+        if (notesActive) {
+            document.body.classList.add('notes-on');
+            btnNotes.innerText = "Notas: ON";
+            btnNotes.classList.remove('off');
+        } else {
+            document.body.classList.remove('notes-on');
+            btnNotes.innerText = "Notas: OFF";
+            btnNotes.classList.add('off');
         }
+    }
 
-        // Eventos de los botones de navegación
-        btnPrev.addEventListener('click', () => {
-            if (currentSlideIndex > 0) {
-                currentSlideIndex--;
-                updateDeck();
-            }
-        });
+    // Inicializar la primera diapositiva al cargar
+    updateSlide(0);
 
-        btnNext.addEventListener('click', () => {
-            if (currentSlideIndex < slides.length - 1) {
-                currentSlideIndex++;
-                updateDeck();
-            }
-        });
+    // Eventos de teclado
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight' || e.key === ' ') {
+        updateSlide(activeIdx + 1);
+      } else if(e.key === 'ArrowLeft') {
+        updateSlide(activeIdx - 1);
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      }
+    });
 
-        // Evento del botón de Notas
-        btnNotes.addEventListener('click', () => {
-            notesPanel.classList.toggle('visible');
-            btnNotes.classList.toggle('active');
-        });
-
-        // Eventos del Teclado (Flechas izquierda y derecha)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                if (currentSlideIndex < slides.length - 1) {
-                    currentSlideIndex++;
-                    updateDeck();
-                }
-            } else if (e.key === 'ArrowLeft') {
-                if (currentSlideIndex > 0) {
-                    currentSlideIndex--;
-                    updateDeck();
-                }
-            } else if (e.key === 'n' || e.key === 'N') {
-                // Presionar la tecla 'N' también abre/cierra las notas
-                notesPanel.classList.toggle('visible');
-                btnNotes.classList.toggle('active');
-            }
-        });
-
-        // Inicializar la primera diapositiva al cargar
-        updateDeck();
-    </script>
+    // Eventos de la botonera
+    btnPrev.addEventListener('click', () => updateSlide(activeIdx - 1));
+    btnNext.addEventListener('click', () => updateSlide(activeIdx + 1));
+    btnNotes.addEventListener('click', toggleNotes);
+  });
+</script>
 </body>
 </html>
