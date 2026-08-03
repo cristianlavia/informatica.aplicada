@@ -28,43 +28,37 @@
   
   .deck{position:fixed;inset:0}
   
-  /* CADA DIAPOSITIVA TIENE PADDING SUPERIOR PARA QUE NADA TAPE LA BARRA DE ARRIBA */
+  /* DIAPOSITIVAS CON MARGEN SUPERIOR PARA LA BARRA DE ARRIBA */
   .slide{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    padding: 95px clamp(30px,4.6vw,76px) 40px;
-    background:var(--white);
-    opacity:0;visibility:hidden;transform:translateY(14px) scale(.992);
-    transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s;
-    overflow-y:auto;
+    position:absolute !important;
+    inset:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    padding: 95px clamp(30px,4.6vw,76px) 50px !important;
+    background:var(--white) !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    transform:translateY(14px) scale(.992) !important;
+    transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s !important;
+    overflow-y:auto !important;
   }
   
-  .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
-  .slide.grad{background:var(--grad)}
+  .slide.active{
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:none !important;
+    z-index:2 !important;
+  }
+  .slide.grad{background:var(--grad) !important}
   
   .slide.active .reveal{animation:rise .55s var(--ease) both}
-  .reveal[data-d="1"]{animation-delay:.08s!important}.reveal[data-d="2"]{animation-delay:.15s!important}
-  .reveal[data-d="3"]{animation-delay:.22s!important}.reveal[data-d="4"]{animation-delay:.29s!important}
-  .reveal[data-d="5"]{animation-delay:.36s!important}
   @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-  .wordmark{display:inline-flex;align-items:center;gap:.4em;font-size:clamp(13px,1.35vw,17px);font-weight:600;color:var(--purple)}
-  .wordmark .pill{border:1.4px solid currentColor;border-radius:999px;padding:.1em .62em;font-weight:400}
-  .mark{width:1.05em;height:1.05em;flex:none}
-  .mark path{fill:none;stroke:currentColor;stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
-
   .kicker{display:inline-flex;align-items:center;gap:.6em;font-size:clamp(10.5px,.95vw,12.5px);font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--purple)}
-  .display{font-size:clamp(38px,6vw,90px);font-weight:900;letter-spacing:-.045em;line-height:1;color:var(--purple)}
   .head{display:flex;flex-direction:column;gap:11px;margin-bottom:clamp(18px,2.4vw,32px)}
   .head h2{font-size:clamp(26px,4vw,54px);font-weight:800;letter-spacing:-.025em;line-height:1.02;color:var(--purple)}
   
-  .lead{font-size:clamp(14.5px,1.5vw,19px);line-height:1.5;color:rgba(0,0,0,.66);max-width:66ch}
-  
-  .tag{display:inline-flex;align-items:center;gap:.5em;border:1.4px solid var(--purple);border-radius:999px;padding:.3em .85em;font-size:clamp(10.5px,1vw,12.5px);font-weight:600;color:var(--purple)}
-  .spacer{flex:1}
-  .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;font-size:11.5px;color:var(--grey);letter-spacing:.04em}
+  .lead{font-size:clamp(14.5px,1.5vw,19px);line-height:1.5;color:rgba(0,0,0,.66);max-width:66ch;margin-bottom:20px}
 
   .grid{display:grid;gap:clamp(12px,1.25vw,17px)}
   .g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
@@ -79,157 +73,307 @@
   .card.accent p{color:rgba(255,255,255,.86)}
   .card.accent .n{color:var(--lav)}
 
-  .row{display:flex;align-items:flex-start;gap:14px;padding:11px 15px;border:1.4px solid var(--line-dark);border-radius:13px}
+  .row{display:flex;align-items:flex-start;gap:14px;padding:11px 15px;border:1.4px solid var(--line-dark);border-radius:13px;background:#faf9fc}
   .row .time{flex:none;min-width:48px;font-weight:800;color:var(--purple);font-size:clamp(12.5px,1.2vw,15px)}
   .row .rc strong{display:block;font-size:clamp(13px,1.15vw,15px);font-weight:700;margin-bottom:1px;color:var(--black)}
   .row .rc span{font-size:clamp(11px,.95vw,12.5px);color:rgba(0,0,0,.55);line-height:1.4}
 
-  .divider{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:15px;flex:1}
-  .divider .bignum{font-size:clamp(90px,18vw,270px);font-weight:900;line-height:.78;letter-spacing:-.05em;color:var(--purple);opacity:0.1;position:absolute;right:5%;top:20%;z-index:-1}
-  .divider .dtitle{font-size:clamp(26px,4.4vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--purple)}
-  .divider .dsub{font-size:clamp(13.5px,1.45vw,18px);color:rgba(0,0,0,.7);max-width:58ch;line-height:1.5}
-
-  /* WEB 4.0 SIN SUPERPOSICIÓN */
+  /* WEB 4.0 / LAYOUTS ESPECIALES */
   .web4-layout {
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-      width: 100%;
-      flex: 1;
+      display: flex !important;
+      align-items: center !important;
+      gap: 3rem !important;
+      width: 100% !important;
+      flex: 1 !important;
   }
   .web4-title {
-      font-size: clamp(60px, 8vw, 120px);
-      font-weight: 900;
-      line-height: 0.85;
-      color: var(--purple);
-      flex-shrink: 0;
+      font-size: clamp(60px, 8vw, 120px) !important;
+      font-weight: 900 !important;
+      line-height: 0.85 !important;
+      color: var(--purple) !important;
+      flex-shrink: 0 !important;
   }
   .web4-content h3 {
-      font-size: clamp(19px, 2.3vw, 30px);
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--purple);
+      font-size: clamp(19px, 2.3vw, 30px) !important;
+      font-weight: 800 !important;
+      margin-bottom: 8px !important;
+      color: var(--purple) !important;
   }
   .web4-content p {
-      font-size: clamp(13.5px, 1.35vw, 17px);
-      line-height: 1.55;
-      color: rgba(0,0,0,.68);
-      max-width: 58ch;
+      font-size: clamp(13.5px, 1.35vw, 17px) !important;
+      line-height: 1.55 !important;
+      color: rgba(0,0,0,.68) !important;
+      max-width: 58ch !important;
   }
 
   /* NOTAS DE PROFESOR ABAJO */
   .tnote{
-    position:absolute;left:0;right:0;bottom:0;
-    padding:10px clamp(30px,4.6vw,76px) 14px;
-    background:rgba(86,60,119,.95);border-top:1px solid var(--lav);
-    font-size:clamp(11px,1.02vw,13px);line-height:1.55;color:#fff;z-index:4;
-    display:none;
+    position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;
+    padding:10px clamp(30px,4.6vw,76px) 14px !important;
+    background:rgba(86,60,119,.95) !important;border-top:1px solid var(--lav) !important;
+    font-size:clamp(11px,1.02vw,13px) !important;line-height:1.55 !important;color:#fff !important;z-index:4 !important;
+    display:none !important;
   }
-  body.notes-on .tnote{display:block}
-  .tnote b{color:var(--lav);font-weight:700}
-  .tnote .tmin{display:inline-block;background:#fff;color:var(--purple);border-radius:6px;padding:.06em .55em;font-weight:800;font-size:.92em;margin-right:8px}
+  body.notes-on .tnote{display:block !important}
+  .tnote b{color:var(--lav) !important;font-weight:700 !important}
+  .tnote .tmin{display:inline-block !important;background:#fff !important;color:var(--purple) !important;border-radius:6px !important;padding:.06em .55em !important;font-weight:800 !important;font-size:.92em !important;margin-right:8px !important}
 
-  .progress{position:fixed;top:0;left:0;height:4px;background:var(--purple);z-index:60;transition:width .35s var(--ease);width:0%}
+  .progress{position:fixed !important;top:0 !important;left:0 !important;height:4px !important;background:var(--purple) !important;z-index:999999 !important;transition:width .35s var(--ease) !important;width:0% !important}
 
-  /* BOTONERA FIJA EN LA PARTE SUPERIOR */
+  /* BOTONERA ESTRICTAMENTE ARRIBA */
   .nav-pill {
-      position: fixed;
-      top: 15px;
-      bottom: auto;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #25252d;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      padding: 6px 14px;
-      gap: 12px;
-      z-index: 9999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: fixed !important;
+      top: 15px !important;
+      bottom: auto !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      background: #25252d !important;
+      border-radius: 50px !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 6px 14px !important;
+      gap: 12px !important;
+      z-index: 999999 !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
   }
   .nav-btn {
-      background: #33333d;
-      color: #ffffff;
-      border: none;
-      border-radius: 50%;
-      width: 34px;
-      height: 34px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
+      background: #33333d !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 50% !important;
+      width: 34px !important;
+      height: 34px !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      cursor: pointer !important;
+      font-size: 1rem !important;
+      transition: background 0.2s !important;
   }
-  .nav-btn:hover { background: #444450; }
-  .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .nav-btn:hover { background: #444450 !important; }
+  .nav-btn:disabled { opacity: 0.4 !important; cursor: not-allowed !important; }
   
   #slideCounter {
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      min-width: 60px;
-      text-align: center;
-      letter-spacing: 1px;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      min-width: 65px !important;
+      text-align: center !important;
+      letter-spacing: 1px !important;
   }
   .notes-toggle {
-      background: var(--purple);
-      color: #ffffff;
-      border: none;
-      border-radius: 30px;
-      padding: 6px 14px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.2s;
+      background: var(--purple) !important;
+      color: #ffffff !important;
+      border: none !important;
+      border-radius: 30px !important;
+      padding: 6px 14px !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      cursor: pointer !important;
+      transition: background 0.2s !important;
   }
-  .notes-toggle:hover { background: #6b4a94; }
-  .notes-toggle.off { background: #444450; color: #a0a0a0; }
+  .notes-toggle:hover { background: #6b4a94 !important; }
+  .notes-toggle.off { background: #444450 !important; color: #a0a0a0 !important; }
 
   @media (max-width:760px){
-    .g2,.g3{grid-template-columns:1fr}
-    .slide{padding:95px 18px 40px}
-    .web4-layout{flex-direction:column;align-items:flex-start;gap:1.5rem}
-    .web4-title{font-size:70px}
+    .g2,.g3{grid-template-columns:1fr !important}
+    .slide{padding:95px 18px 50px !important}
+    .web4-layout{flex-direction:column !important;align-items:flex-start !important;gap:1.5rem !important}
+    .web4-title{font-size:70px !important}
   }
 </style>
 </head>
 <body class="notes-on">
 <div class="progress" id="progress"></div>
 
-<!-- BOTONERA SUPERIOR -->
+<!-- BOTONERA FIJA EN LA PARTE SUPERIOR -->
 <div class="nav-pill">
     <button id="btnPrev" class="nav-btn">❮</button>
-    <span id="slideCounter">01 / 58</span>
+    <span id="slideCounter">01 / 11</span>
     <button id="btnNext" class="nav-btn">❯</button>
     <button id="btnNotes" class="notes-toggle">Notas: ON</button>
 </div>
 
 <div class="deck">
 
-  <!-- ======================================================== -->
-  <!-- PEGA AQUÍ TUS 58 DIAPOSITIVAS (<section class="slide">) -->
-  <!-- ======================================================== -->
-
-  <section class="slide active">
-    <div class="head reveal"><span class="kicker">Módulo 1</span><h2>Bienvenida a la Presentación</h2></div>
-    <p class="lead reveal">Pegá aquí el contenido de tus diapositivas...</p>
-    <div class="tnote"><span class="tmin">0:00</span><b>Nota de profesor:</b> Presioná la letra <b>N</b> para ocultar o mostrar estas notas.</div>
+  <!-- DIAPOSITIVA 1: Portada -->
+  <section class="slide active grad">
+    <div class="head reveal"><span class="kicker">Módulo Académico</span><h2>Informática Aplicada</h2></div>
+    <p class="lead reveal">Fundamentos del ecosistema digital, procesamiento avanzado de datos y visualización estratégica para la toma de decisiones.</p>
+    <div class="grid g3 reveal">
+      <div class="card accent"><span class="n">01</span><h3>Ecosistema Digital</h3><p>Conectividad, transformación y nuevos paradigmas tecnológicos.</p></div>
+      <div class="card"><span class="n">02</span><h3>IA Generativa</h3><p>Automatización de tareas, prompts y optimización analítica.</p></div>
+      <div class="card"><span class="n">03</span><h3>Business Intelligence</h3><p>Google Sheets y Looker Studio aplicados al negocio.</p></div>
+    </div>
+    <div class="tnote"><span class="tmin">0:00</span><b>Nota:</b> Bienvenida y presentación general de los objetivos del curso. Presioná <b>N</b> para alternar notas.</div>
   </section>
 
+  <!-- DIAPOSITIVA 2: Unidad 1 - Ecosistema -->
   <section class="slide">
-    <div class="head reveal"><span class="kicker">Ecosistema Digital</span><h2>Evolución Tecnológica</h2></div>
+    <div class="head reveal"><span class="kicker">Unidad 1 · Entorno Digital</span><h2>El Ecosistema Digital Moderno</h2></div>
+    <p class="lead reveal">La interacción constante entre usuarios, plataformas y datos define la arquitectura de las organizaciones actuales.</p>
+    <div class="grid g2 reveal">
+      <div class="card">
+        <h3>Infraestructura Conectada</h3>
+        <p>Integración fluida de dispositivos móviles, computación en la nube y terminales de alta portabilidad.</p>
+      </div>
+      <div class="card">
+        <h3>Flujo de Información</h3>
+        <p>Transformación del dato crudo en activos estratégicos accesibles en tiempo real desde cualquier ubicación.</p>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">3:00</span><b>Nota:</b> Explicar cómo el hardware y la nube conforman la base operativa de cualquier empresa.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 3: Evolución Tecnológica -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Unidad 1 · Tendencias</span><h2>Evolución hacia la Web 4.0</h2></div>
     <div class="web4-layout reveal">
       <div class="web4-title">Web<br>4.0</div>
       <div class="web4-content">
         <h3>Sobrevivir a la Infoxicación</h3>
-        <p>Estructura corregida con Flexbox para evitar superposiciones.</p>
+        <p>El salto tecnológico se centra en la automatización inteligente, la conectividad total y la asistencia predictiva mediante modelos avanzados para evitar la saturación de información.</p>
       </div>
     </div>
-    <div class="tnote"><span class="tmin">5:00</span><b>Nota:</b> Explicar automatización inteligente.</div>
+    <div class="tnote"><span class="tmin">7:00</span><b>Nota:</b> Detallar el tránsito desde la web estática hasta la simbiosis actual con sistemas inteligentes.</div>
   </section>
 
-  <!-- Continuar pegando el resto de diapositivas hasta la 58 aquí -->
+  <!-- DIAPOSITIVA 4: Unidad 2 - IA Generativa -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Unidad 2 · Inteligencia Artificial</span><h2>IA Generativa en la Práctica Profesional</h2></div>
+    <p class="lead reveal">Los modelos de lenguaje actúan como copilotos estratégicos para potenciar la productividad y la creatividad analítica.</p>
+    <div class="grid g3 reveal">
+      <div class="card">
+        <h3>Curación de Datos</h3>
+        <p>Investigación rápida de mercados, benchmarking y análisis competitivo estructurado.</p>
+      </div>
+      <div class="card">
+        <h3>Ingeniería de Prompts</h3>
+        <p>Diseño de instrucciones precisas para depurar errores, redactar briefs y estructurar reportes.</p>
+      </div>
+      <div class="card">
+        <h3>Storytelling</h3>
+        <p>Traducción de métricas complejas en narrativas comerciales claras para la toma de decisiones.</p>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">12:00</span><b>Nota:</b> Demostrar cómo un buen prompt acelera tareas repetitivas de redacción y análisis.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 5: Procesamiento de Datos -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Unidad 2 · Gestión Analítica</span><h2>Procesamiento con Google Sheets</h2></div>
+    <p class="lead reveal">El manejo eficiente de hojas de cálculo es la columna vertebral para ordenar, limpiar y estructurar grandes volúmenes de información.</p>
+    <div class="grid g2 reveal">
+      <div class="card">
+        <h3>Estructuración de Tablas</h3>
+        <p>Normalización de bases de datos, eliminación de duplicados y control de tipos de datos.</p>
+      </div>
+      <div class="card">
+        <h3>Fórmulas y Automatización</h3>
+        <p>Uso de funciones lógicas, de búsqueda avanzada y referencias dinámicas para optimizar tiempos.</p>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">18:00</span><b>Nota:</b> Enfatizar la importancia de mantener bases de datos limpias antes de llevarlas a herramientas de BI.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 6: Automatización de Datos -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Unidad 2 · Profundización</span><h2>Funciones Avanzadas y Fórmulas</h2></div>
+    <div class="grid g2 reveal">
+      <div class="row">
+        <span class="time">01</span>
+        <div class="rc"><strong>Lógica Condicional</strong><span>Implementación de estructuras anidadas para clasificaciones automáticas de registros.</span></div>
+      </div>
+      <div class="row">
+        <span class="time">02</span>
+        <div class="rc"><strong>Búsqueda y Referencia</strong><span>Conexión de tablas cruzadas mediante identificadores únicos de manera eficiente.</span></div>
+      </div>
+      <div class="row">
+        <span class="time">03</span>
+        <div class="rc"><strong>Tablas Dinámicas</strong><span>Agregación y resumen rápido de métricas clave para auditorías de rendimiento.</span></div>
+      </div>
+      <div class="row">
+        <span class="time">04</span>
+        <div class="rc"><strong>Depuración con IA</strong><span>Uso de asistentes virtuales para corregir errores de sintaxis en fórmulas complejas.</span></div>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">23:00</span><b>Nota:</b> Repasar ejemplos prácticos de funciones condicionales y de búsqueda cruzada.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 7: Unidad 3 - Looker Studio -->
+  <section class="slide grad">
+    <div class="head reveal"><span class="kicker">Unidad 3 · Visualización</span><h2>Dashboards con Looker Studio</h2></div>
+    <p class="lead reveal">Transformar planillas estáticas en tableros interactivos y visualmente atractivos para comunicar el valor del negocio.</p>
+    <div class="grid g3 reveal">
+      <div class="card accent"><span class="n">UI</span><h3>Conexión Directa</h3><p>Vinculación en tiempo real con fuentes de datos en la nube.</p></div>
+      <div class="card"><span class="n">UX</span><h3>Filtros Dinámicos</h3><p>Segmentación interactiva orientada a distintos perfiles de usuario.</p></div>
+      <div class="card"><span class="n">KPI</span><h3>Métricas Clave</h3><p>Diseño enfocado en indicadores críticos de rendimiento.</p></div>
+    </div>
+    <div class="tnote"><span class="tmin">28:00</span><b>Nota:</b> Explicar la diferencia entre una planilla aburrida y un panel de control interactivo.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 8: Storytelling con Datos -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Unidad 3 · Estrategia</span><h2>Storytelling y Comunicación Visual</h2></div>
+    <p class="lead reveal">Un buen reporte analítico no solo muestra números, cuenta una historia que moviliza a la acción gerencial.</p>
+    <div class="grid g2 reveal">
+      <div class="card">
+        <h3>Jerarquía Visual</h3>
+        <p>Uso de contrastes, tamaños y ubicación espacial para guiar la lectura del tomador de decisiones.</p>
+      </div>
+      <div class="card">
+        <h3>Simplificación de Gráficos</h3>
+        <p>Elección del gráfico correcto según la métrica (tendencias, proporciones, comparativas).</p>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">33:00</span><b>Nota:</b> Mostrar ejemplos de gráficos saturados vs. tableros limpios y directos.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 9: Ética y Seguridad -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Buenas Prácticas</span><h2>Ética y Privacidad en el Manejo de Datos</h2></div>
+    <p class="lead reveal">La gestión responsable de la información es un pilar fundamental en cualquier proyecto tecnológico contemporáneo.</p>
+    <div class="grid g3 reveal">
+      <div class="card">
+        <h3>Privacidad</h3><p>Protección rigurosa de datos sensibles y cumplimiento normativo institucional.</p>
+      </div>
+      <div class="card">
+        <h3>Integridad</h3><p>Garantizar que las fuentes de información sean verídicas y libres de sesgos ocultos.</p>
+      </div>
+      <div class="card">
+        <h3>Seguridad</h3><p>Resguardo de accesos y copias de seguridad en entornos colaborativos.</p>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">38:00</span><b>Nota:</b> Destacar la responsabilidad ética al trabajar con datos de usuarios y clientes.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 10: Casos de Estudio -->
+  <section class="slide">
+    <div class="head reveal"><span class="kicker">Aplicación Práctica</span><h2>Casos de Estudio Integrales</h2></div>
+    <div class="grid g2 reveal">
+      <div class="row">
+        <span class="time">01</span>
+        <div class="rc"><strong>Proyecto Comercial</strong><span>Automatización de reportes de ventas combinando Google Sheets y Looker Studio.</span></div>
+      </div>
+      <div class="row">
+        <span class="time">02</span>
+        <div class="rc"><strong>Análisis de Campañas</strong><span>Evaluación de métricas de marketing digital asistida por inteligencia artificial.</span></div>
+      </div>
+    </div>
+    <div class="tnote"><span class="tmin">42:00</span><b>Nota:</b> Presentar el lineamiento general del trabajo práctico integrador para los estudiantes.</div>
+  </section>
+
+  <!-- DIAPOSITIVA 11: Cierre -->
+  <section class="slide grad">
+    <div class="head reveal"><span class="kicker">Cierre del Módulo</span><h2>Conclusiones y Próximos Pasos</h2></div>
+    <p class="lead reveal">El domínio de estas herramientas transforma la operativa diaria en una ventaja competitiva sostenible.</p>
+    <div class="grid g2 reveal">
+      <div class="card accent"><span class="n">OK</span><h3>Evaluación Continua</h3><p>Aplicación de los conceptos aprendidos en escenarios reales de gestión.</p>
+    </div>
+      <div class="card"><span class="n">Q&A</span><h3>Espacio de Consultas</h3><p>Resolución de dudas técnicas y apertura para el intercambio final.</p></div>
+    </div>
+    <div class="tnote"><span class="tmin">47:00</span><b>Nota:</b> Espacio abierto para preguntas y cierre formal de la presentación.</div>
+  </section>
 
 </div>
 
